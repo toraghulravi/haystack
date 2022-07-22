@@ -97,6 +97,7 @@ jobs:
           - "pipelines"
           - "modeling"
           - "others"
+          - "document_stores/test_opensearch.py"
 
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -183,7 +184,6 @@ jobs:
     - name: Setup Elasticsearch
       run: |
         docker run -d -p 9200:9200 -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms128m -Xmx256m" elasticsearch:7.9.2
-        docker run -d -p 9201:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:1.2.4
 
       # TODO Let's try to remove this one from the unit tests
     - name: Install pdftotext
@@ -528,6 +528,8 @@ jobs:
           - "pipelines"
           - "modeling"
           - "others"
+          - "document_stores/test_opensearch.py"
+
     runs-on: ubuntu-latest
 
     steps:
@@ -539,6 +541,9 @@ jobs:
     - name: Run Elasticsearch
       run: |
         docker run -d -p 9200:9200 -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms128m -Xmx256m" elasticsearch:7.9.2
+
+    - name: Run Opensearch
+      run: |
         docker run -d -p 9201:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:1.2.4
 
     - name: Run Milvus
