@@ -1419,6 +1419,7 @@ class BaseElasticsearchDocumentStore(KeywordDocumentStore):
                         "_op_type": "update",
                         "_index": index,
                         "_id": doc.id,
+                        "retry_on_conflict": doc.retry_on_conflict,
                         "doc": {self.embedding_field: emb.tolist()},
                     }
                     doc_updates.append(update)
